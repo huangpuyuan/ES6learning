@@ -49,21 +49,40 @@
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	__webpack_require__(2);
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	/**
+	 * Created by Kaitai on 2017/4/26.
+	 */
 
-	var Test = function Test() {
-	    _classCallCheck(this, Test);
+	function test() {
+	    // for (let i=1;i<3;i++){
+	    //     console.log(i);
+	    // }
+	    // console.log(i);
 
-	    this.a = 'hello world';
-	};
+	}
 
-	var test = new Test();
-
-	document.body.innerHTML = test.a;
+	function last() {
+	    var PI = 3.1415926;
+	    var k = {
+	        a: 1
+	    };
+	    k.b = 3;
+	    console.log(PI, k);
+	}
+	test();
+	last();
 
 /***/ })
 /******/ ]);
