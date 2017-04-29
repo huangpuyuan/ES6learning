@@ -51,7 +51,7 @@
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	__webpack_require__(2);
 
@@ -59,30 +59,127 @@
 /* 2 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
-	/**
-	 * Created by Kaitai on 2017/4/26.
-	 */
-
-	function test() {
-	    // for (let i=1;i<3;i++){
-	    //     console.log(i);
-	    // }
-	    // console.log(i);
-
-	}
-
-	function last() {
-	    var PI = 3.1415926;
-	    var k = {
-	        a: 1
+	{
+	    var ajax = function ajax(callback) {
+	        console.log('执行');
+	        setTimeout(function () {
+	            callback && callback.call();
+	        }, 1000);
 	    };
-	    k.b = 3;
-	    console.log(PI, k);
+
+	    ajax(function () {
+	        console.log('timeout1');
+	    });
 	}
-	test();
-	last();
+	{
+	    var _ajax = function _ajax() {
+	        console.log('执行2');
+	        return new Promise(function (resolve, reject) {
+	            setTimeout(function () {
+	                resolve();
+	            }, 1000);
+	        });
+	    };
+
+	    _ajax().then(function () {
+	        console.log('promise', 'timeout2');
+	    });
+	}
+	{
+	    var _ajax2 = function _ajax2() {
+	        console.log('执行3');
+	        return new Promise(function (resolve, reject) {
+	            setTimeout(function () {
+	                resolve();
+	            }, 1000);
+	        });
+	    };
+
+	    _ajax2().then(function () {
+	        return new Promise(function (resolve, reject) {
+	            setTimeout(function () {
+	                resolve();
+	            }, 2000);
+	        });
+	    }).then(function () {
+	        console.log('timeout3');
+	    });
+	}
+	{
+	    var _ajax3 = function _ajax3(num) {
+	        console.log('执行4');
+	        return new Promise(function (resolve, reject) {
+	            if (num > 5) {
+	                resolve();
+	            } else {
+	                throw new Error('出错了');
+	            }
+	        });
+	    };
+
+	    _ajax3(6).then(function () {
+	        console.log('log', 6);
+	    }).catch(function (err) {
+	        console.log('catch', err);
+	    });
+
+	    _ajax3(3).then(function () {
+	        console.log('log', 6);
+	    }).catch(function (err) {
+	        console.log('catch', err);
+	    });
+	}
+	{
+	    // Promise高级 所有图片加载完毕再加载到页面
+
+	    var loadImg = function loadImg(src) {
+	        return new Promise(function (resolve, reject) {
+	            var img = document.createElement('img');
+	            img.src = src;
+	            img.onload = function () {
+	                resolve(img);
+	            };
+	            img.onerror = function () {
+	                reject(err);
+	            };
+	        });
+	    };
+
+	    var showImgs = function showImgs(imgs) {
+	        imgs.forEach(function (img) {
+	            document.body.appendChild(img);
+	        });
+	    };
+
+	    Promise.all([loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), loadImg('http://i4.buimg.com/567751/2b07ee25b08930ba.png'), loadImg('http://i2.buimg.com/567751/5eb8190d6b2a1c9c.png')]).then(showImgs);
+	}
+	{
+	    // 三张图片位于不同位置 加载出一个都可以 有一个图片加载完就添加到页面
+	    var _loadImg = function _loadImg(src) {
+	        return new Promise(function (resolve, reject) {
+	            var img = document.createElement('img');
+	            img.src = src;
+	            img.onload = function () {
+	                resolve(img);
+	            };
+	            img.onerror = function () {
+	                reject(err);
+	            };
+	        });
+	    };
+
+	    var _showImgs = function _showImgs(img) {
+	        var p = document.createElement('p');
+	        p.appendChild(img);
+	        document.body.appendChild(p);
+	    };
+
+	    ;
+
+	    Promise.race([_loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), _loadImg('http://i4.buimg.com/567751/2b07ee25b08930ba.png'), _loadImg('http://i2.buimg.com/567751/5eb8190d6b2a1c9c.png')]).then(_showImgs);
+	}
 
 /***/ })
 /******/ ]);
