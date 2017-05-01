@@ -27,10 +27,14 @@
     "gulp-sequence": "^0.4.6",
     "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.8",
+    "jquery": "^3.2.1",
     "require-dir": "^0.3.1",
     "vinyl-named": "^1.1.0",
     "webpack": "^2.4.1",
     "webpack-stream": "^3.2.0",
     "yargs": "^7.1.0"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1"
   }
 }
